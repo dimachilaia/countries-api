@@ -1,17 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BsChevronDown } from "react-icons/bs";
 import { RiArrowUpSLine } from "react-icons/ri";
 import Header from "./HeaderComp";
+import ContinentsFor from "./ContinentsFor";
 
-const MainSection: React.FC = () => {
+interface Props {
+  data: {
+    name: { common: string};
+  }[],
+  setData: React.Dispatch<React.SetStateAction<[]>>,
+  input: string,
+  setInput: (value: string) => void
+  // input:string;
+  // setInput:React.Dispatch<React.SetStateAction<string>>;
+}
+
+const MainSection: React.FC<Props> = ({ data, setData, input, setInput}) => {
   const [showContinets, setShowContinents] = useState<boolean>(false);
-  const ContinentsArray = ["Africa", "America", "Asia", "Europe", "Oceania"];
 
-  const showContinentsHandler = ()=>{
-    setShowContinents(prev=>!prev)
-  }
+  const ContinentsArray: string[] = [
+    "Africa",
+    "America",
+    "Asia",
+    "Europe",
+    "Oceania",
+  ];
+
+  const showContinentsHandler = () => {
+    setShowContinents((prev) => !prev);
+  };
+
+
   return (
     <MainSect>
       <Header />
@@ -19,27 +40,28 @@ const MainSection: React.FC = () => {
         <span>
           <AiOutlineSearch />
         </span>
-        <input placeholder="Search for a country" />
+        <input placeholder="Search for a country" onChange={(e)=>setInput(e.target.value)}/>
       </InputContainer>
+    
       <FilterRegion>
         <p>Filter By Region</p>
-        {!showContinets ? <span onClick={showContinentsHandler}>
-          <BsChevronDown />
-        </span> : (
-        <span onClick={showContinentsHandler} >
-          <RiArrowUpSLine />
-        </span>)}
+        {!showContinets ? (
+          <span onClick={showContinentsHandler}>
+            <BsChevronDown />
+          </span>
+        ) : (
+          <span onClick={showContinentsHandler}>
+            <RiArrowUpSLine />
+          </span>
+        )}
       </FilterRegion>
-
-      {showContinets && <Continets>
-        {ContinentsArray.map((item) => {
-          return (
-           <MappedContinent key={item}>
-            <span>{item}</span>
-           </MappedContinent>
-          );
-        })}
-      </Continets>}
+      {showContinets && (
+        <Continets>
+          {ContinentsArray.map((item, index) => {
+            return <ContinentsFor item={item} key={index} />;
+          })}
+        </Continets>
+      )}
     </MainSect>
   );
 };
@@ -100,19 +122,5 @@ const Continets = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
-  transform:translateY(-20px);
-`;
-const MappedContinent = styled.div`
-  background-color: white;
-  padding-top: 10px;
-  width: 250px;
-  border-radius:2px;
-  margin: 0 auto;
-  @media screen and (min-width: 768px) {
-    width: 340px;
-  }
-  span:hover {
-    color:red;
-    cursor:pointer;
-  }
+  transform: translateY(-20px);
 `;
