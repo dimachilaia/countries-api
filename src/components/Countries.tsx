@@ -28,8 +28,10 @@ const Countries: React.FC<Props> = ({
     });
   }, []);
   const output = [...data]
-    .filter((mi:any) => mi.name.common.toLowerCase().includes(input))
-    .filter((mi:any) => changeContinent ? mi.region === changeContinent :mi);
+    .filter((mi: any) => mi.name.common.toLowerCase().includes(input))
+    .filter((mi: any) =>
+      changeContinent ? mi.region === changeContinent : mi
+    );
 
   return (
     <MainContainer>

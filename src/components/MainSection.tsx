@@ -2,27 +2,29 @@ import React from "react";
 import styled from "styled-components";
 import { AiOutlineSearch } from "react-icons/ai";
 import Header from "./HeaderComp";
+import axios from "axios";
 
 interface Props {
-  data: {
-    name: { common: string };
-  }[];
-  setData: React.Dispatch<React.SetStateAction<[]>>;
-  input: string;
   setInput: (value: string) => void;
-  changeContinent:string;
+  changeContinent: string;
   setChangeContinent: React.Dispatch<React.SetStateAction<string>>;
-  // input:string;
-  // setInput:React.Dispatch<React.SetStateAction<string>>;
+  setData: React.Dispatch<React.SetStateAction<[]>>;
 }
 
-const MainSection: React.FC<Props> = ({  setInput, setChangeContinent }) => {
+const MainSection: React.FC<Props> = ({
+  changeContinent,
+  setInput,
+  setChangeContinent,
+  setData,
+}) => {
   const ContinentsArray: string[] = [
     "Africa",
     "Asia",
+    "Americas",
     "Europe",
     "Oceania",
   ];
+
   return (
     <MainSect>
       <Header />
@@ -35,10 +37,12 @@ const MainSection: React.FC<Props> = ({  setInput, setChangeContinent }) => {
           onChange={(e) => setInput(e.target.value)}
         />
       </InputContainer>
-
-      <Select onChange={(e)=>setChangeContinent(e.target.value)}>
+      <Select onChange={(e) => setChangeContinent(e.target.value)}>
+        <option value="">All</option>
         {ContinentsArray.map((item) => {
-          return <option value={item} >{item}</option>;
+          return <>
+            <option value={item}>{item}</option>
+          </>;
         })}
       </Select>
     </MainSect>

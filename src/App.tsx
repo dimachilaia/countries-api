@@ -10,9 +10,7 @@ const App: React.FC = () => {
   return (
     <div>
       <MainSection
-        input={input}
         setInput={setInput}
-        data={data}
         setData={setData}
         changeContinent={changeContinent}
         setChangeContinent={setChangeContinent}
