@@ -53,6 +53,11 @@ const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
 `;
 const MainDiv = styled.div`
   h5 {
@@ -61,3 +66,22 @@ const MainDiv = styled.div`
     text-align: center;
   }
 `;
+
+// export type Picture = {
+//   artist:{
+//       image:string,
+//       name:string
+//   },
+//   description:string,
+//   name:string,
+//   images:{
+//       gallery:string,
+//       hero:{
+//           large:string,
+//           small:string
+//       },
+//       thumbnail:string
+//   }
+//   source:string,
+//   year:number
+// }

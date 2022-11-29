@@ -12,10 +12,8 @@ interface Props {
 }
 
 const MainSection: React.FC<Props> = ({
-  changeContinent,
   setInput,
-  setChangeContinent,
-  setData,
+  setChangeContinent
 }) => {
   const ContinentsArray: string[] = [
     "Africa",
@@ -40,9 +38,11 @@ const MainSection: React.FC<Props> = ({
       <Select onChange={(e) => setChangeContinent(e.target.value)}>
         <option value="">All</option>
         {ContinentsArray.map((item) => {
-          return <>
-            <option value={item}>{item}</option>
-          </>;
+          return (
+            <>
+              <option value={item}>{item}</option>
+            </>
+          );
         })}
       </Select>
     </MainSect>
