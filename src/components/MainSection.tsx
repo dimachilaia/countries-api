@@ -1,38 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { AiOutlineSearch } from "react-icons/ai";
-import { BsChevronDown } from "react-icons/bs";
-import { RiArrowUpSLine } from "react-icons/ri";
 import Header from "./HeaderComp";
-import ContinentsFor from "./ContinentsFor";
 
 interface Props {
   data: {
-    name: { common: string};
-  }[],
-  setData: React.Dispatch<React.SetStateAction<[]>>,
-  input: string,
-  setInput: (value: string) => void
+    name: { common: string };
+  }[];
+  setData: React.Dispatch<React.SetStateAction<[]>>;
+  input: string;
+  setInput: (value: string) => void;
+  changeContinent:string;
+  setChangeContinent: React.Dispatch<React.SetStateAction<string>>;
   // input:string;
   // setInput:React.Dispatch<React.SetStateAction<string>>;
 }
 
-const MainSection: React.FC<Props> = ({ data, setData, input, setInput}) => {
-  const [showContinets, setShowContinents] = useState<boolean>(false);
-
+const MainSection: React.FC<Props> = ({  setInput, setChangeContinent }) => {
   const ContinentsArray: string[] = [
     "Africa",
-    "America",
     "Asia",
     "Europe",
     "Oceania",
   ];
-
-  const showContinentsHandler = () => {
-    setShowContinents((prev) => !prev);
-  };
-
-
   return (
     <MainSect>
       <Header />
@@ -40,28 +30,17 @@ const MainSection: React.FC<Props> = ({ data, setData, input, setInput}) => {
         <span>
           <AiOutlineSearch />
         </span>
-        <input placeholder="Search for a country" onChange={(e)=>setInput(e.target.value)}/>
+        <input
+          placeholder="Search for a country"
+          onChange={(e) => setInput(e.target.value)}
+        />
       </InputContainer>
-    
-      <FilterRegion>
-        <p>Filter By Region</p>
-        {!showContinets ? (
-          <span onClick={showContinentsHandler}>
-            <BsChevronDown />
-          </span>
-        ) : (
-          <span onClick={showContinentsHandler}>
-            <RiArrowUpSLine />
-          </span>
-        )}
-      </FilterRegion>
-      {showContinets && (
-        <Continets>
-          {ContinentsArray.map((item, index) => {
-            return <ContinentsFor item={item} key={index} />;
-          })}
-        </Continets>
-      )}
+
+      <Select onChange={(e)=>setChangeContinent(e.target.value)}>
+        {ContinentsArray.map((item) => {
+          return <option value={item} >{item}</option>;
+        })}
+      </Select>
     </MainSect>
   );
 };
@@ -81,7 +60,9 @@ const InputContainer = styled.div`
     border-radius: 10px;
     padding: 10px 20px;
     height: 33px;
-    width: 250px;
+    width: 300px;
+    font-size: 17px;
+    font-weight: bold;
     padding-left: 30px;
     @media screen and (min-width: 768px) {
       width: 500px;
@@ -97,30 +78,14 @@ const InputContainer = styled.div`
   }
 `;
 
-const FilterRegion = styled.div`
-  background-color: white;
-  width: 250px;
+const Select = styled.select`
+  margin: 35px auto;
+  display: flex;
+  width: 240px;
   height: 40px;
-  display: flex;
-  align-items: center;
-  margin: 23px auto;
-  justify-content: space-evenly;
-  border-radius: 4px;
-  @media screen and (min-width: 768px) {
-    width: 300px;
-    height: 43px;
-    padding-left: 40px;
-    justify-content: space-around;
-  }
-  span {
-    cursor: pointer;
-  }
-`;
-
-const Continets = styled.div`
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
   text-align: center;
-  transform: translateY(-20px);
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-weight: bold;
+  font-size: 22px;
 `;

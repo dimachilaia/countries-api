@@ -3,7 +3,6 @@ import image from "../images/dark.png";
 import styled from "styled-components";
 
 const Header = () => {
-
   return (
     <MainHeader>
       <Container>
@@ -20,8 +19,7 @@ const Header = () => {
 
 export default Header;
 
-const MainHeader = styled.div`
-`;
+const MainHeader = styled.div``;
 const Container = styled.div`
   h4 {
     color: black;

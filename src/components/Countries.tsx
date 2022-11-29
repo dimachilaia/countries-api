@@ -4,24 +4,32 @@ import styled from "styled-components";
 
 interface Props {
   data: {
-    cca2: string,
-    flag: string,
-    key: string | number,
-    name: { common: string },
+    cca2: string;
+    flag: string;
+    key: string | number;
+    name: { common: string };
     flags: { png: string };
   }[];
-  input: string,
-  setInput: (value: string) => void
+  input: string;
+  setInput: (value: string) => void;
   setData: React.Dispatch<React.SetStateAction<[]>>;
+  changeContinent: string;
+  setChangeContinent: React.Dispatch<React.SetStateAction<string>>;
 }
-const Countries: React.FC<Props> = ({ data, setData, input, setInput }) => {
+const Countries: React.FC<Props> = ({
+  data,
+  setData,
+  input,
+  changeContinent,
+}) => {
   useEffect(() => {
     axios.get("https://restcountries.com/v3.1/all").then((response) => {
       setData(response.data);
-      console.log(response.data)
     });
   }, []);
-  const output = [...data].filter((mi: any) => mi.name.common.toLowerCase().includes(input))
+  const output = [...data]
+    .filter((mi:any) => mi.name.common.toLowerCase().includes(input))
+    .filter((mi:any) => changeContinent ? mi.region === changeContinent :mi);
 
   return (
     <MainContainer>
