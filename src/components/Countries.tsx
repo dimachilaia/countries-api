@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 import CountryInfo from "./CountryInfo";
 
 interface Props {
@@ -49,7 +49,7 @@ const Countries: React.FC<Props> = ({
             <Info>
               <h2>{item.name.common}</h2>
               <p>
-                Population: <span>{item.population}</span>
+                Population: <span>{item.population.toLocaleString()}</span>
               </p>
               <p>
                 Region: <span> {item.region}</span>
