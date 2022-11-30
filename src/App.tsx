@@ -11,7 +11,7 @@ const App: React.FC = () => {
   return (
     <Routes>
       <Route
-        path="/"
+        path="/countries-api"
         element={
           <MainSection
             setInput={setInput}
@@ -23,7 +23,7 @@ const App: React.FC = () => {
           />
         }
       />
-      <Route path="detail/:name" element={<CountryInfo />}/>
+      <Route path="/countries-api/detail/:name" element={<CountryInfo />}/>
     </Routes>
   );
 };

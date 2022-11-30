@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import axios from "axios";
 import styled from "styled-components";
+import { useNavigate } from "react-router";
 
 const CountryInfo = () => {
   const [country, setCountry] = useState([]);
   const { name } = useParams();
+  const navigator = useNavigate();
 
   type Item = {
     name: {
@@ -39,6 +41,7 @@ const CountryInfo = () => {
         console.log(item)
         return (
           <div>
+            <p style={{cursor:'pointer'}} onClick={()=>navigator(-1)}>Go Back</p>
             <img src={item.flags.png} alt={item.name.common}/>
             <p>{item.name.common}</p>
             <p>{item.name.nativeName.common}</p>
