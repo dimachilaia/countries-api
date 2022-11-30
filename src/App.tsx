@@ -6,6 +6,7 @@ const App: React.FC = () => {
   const [data, setData] = useState<[]>([]);
   const [input, setInput] = useState("");
   const [changeContinent, setChangeContinent] = useState<string>('');
+  const [isWhite, setIsWhite] = useState<boolean>(true)
 
   return (
     <div>
@@ -22,6 +23,8 @@ const App: React.FC = () => {
         setData={setData}
         changeContinent={changeContinent}
         setChangeContinent={setChangeContinent}
+        isWhite={isWhite}
+        setIsWhite={setIsWhite}
       />
     </div>
   );

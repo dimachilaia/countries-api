@@ -9,18 +9,25 @@ interface Props {
     key: string | number;
     name: { common: string };
     flags: { png: string };
+    population: string;
+    region: string;
+    capital: string;
   }[];
   input: string;
   setInput: (value: string) => void;
   setData: React.Dispatch<React.SetStateAction<[]>>;
   changeContinent: string;
   setChangeContinent: React.Dispatch<React.SetStateAction<string>>;
+  isWhite: boolean;
+  setIsWhite: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const Countries: React.FC<Props> = ({
   data,
   setData,
   input,
   changeContinent,
+  isWhite,
+  setIsWhite,
 }) => {
   useEffect(() => {
     axios.get("https://restcountries.com/v3.1/all").then((response) => {
@@ -39,7 +46,18 @@ const Countries: React.FC<Props> = ({
         return (
           <MainDiv key={item.name.common}>
             <img src={item.flags.png} alt={item.name.common} />
-            <h5>{item.name.common}</h5>
+            <Info>
+              <h2>{item.name.common}</h2>
+              <p>
+                Population: <span>{item.population}</span>
+              </p>
+              <p>
+                Region: <span> {item.region}</span>
+              </p>
+              <p>
+                Capital: <span>{item.capital}</span>
+              </p>
+            </Info>
           </MainDiv>
         );
       })}
@@ -65,23 +83,26 @@ const MainDiv = styled.div`
     color: white;
     text-align: center;
   }
+  img {
+    cursor: pointer;
+    &:hover {
+      opacity: 0.77;
+    }
+  }
 `;
 
-// export type Picture = {
-//   artist:{
-//       image:string,
-//       name:string
-//   },
-//   description:string,
-//   name:string,
-//   images:{
-//       gallery:string,
-//       hero:{
-//           large:string,
-//           small:string
-//       },
-//       thumbnail:string
-//   }
-//   source:string,
-//   year:number
-// }
+const Info = styled.div`
+  background-color: white;
+  border-radius: 5px;
+  transform: translateY(-4.2vh);
+  p {
+    text-align: center;
+  }
+  h2 {
+    color: black;
+    text-align: center;
+  }
+  span {
+    opacity: 0.72;
+  }
+`;
