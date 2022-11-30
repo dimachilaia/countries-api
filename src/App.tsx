@@ -1,32 +1,30 @@
 import React, { useState } from "react";
-import Countries from "./components/Countries";
 import MainSection from "./components/MainSection";
+import { Routes, Route } from "react-router";
+import CountryInfo from "./components/CountryInfo";
 
 const App: React.FC = () => {
   const [data, setData] = useState<[]>([]);
   const [input, setInput] = useState("");
-  const [changeContinent, setChangeContinent] = useState<string>('');
-  const [isWhite, setIsWhite] = useState<boolean>(true)
+  const [changeContinent, setChangeContinent] = useState<string>("");
 
   return (
-    <div>
-      <MainSection
-        setInput={setInput}
-        setData={setData}
-        changeContinent={changeContinent}
-        setChangeContinent={setChangeContinent}
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <MainSection
+            setInput={setInput}
+            setData={setData}
+            changeContinent={changeContinent}
+            setChangeContinent={setChangeContinent}
+            input={input}
+            data={data}
+          />
+        }
       />
-      <Countries
-        input={input}
-        setInput={setInput}
-        data={data}
-        setData={setData}
-        changeContinent={changeContinent}
-        setChangeContinent={setChangeContinent}
-        isWhite={isWhite}
-        setIsWhite={setIsWhite}
-      />
-    </div>
+      <Route path="detail/:name" element={<CountryInfo />}/>
+    </Routes>
   );
 };
 

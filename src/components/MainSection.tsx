@@ -2,18 +2,33 @@ import React from "react";
 import styled from "styled-components";
 import { AiOutlineSearch } from "react-icons/ai";
 import Header from "./HeaderComp";
-import axios from "axios";
+import Countries from "./Countries";
 
-interface Props {
+export interface Props {
   setInput: (value: string) => void;
   changeContinent: string;
   setChangeContinent: React.Dispatch<React.SetStateAction<string>>;
   setData: React.Dispatch<React.SetStateAction<[]>>;
+  input: string;
+  data: {
+    cca2: string;
+    flag: string;
+    key: string | number;
+    name: { common: string };
+    flags: { png: string };
+    population: string;
+    region: string;
+    capital: string;
+  }[];
 }
 
 const MainSection: React.FC<Props> = ({
   setInput,
-  setChangeContinent
+  setChangeContinent,
+  setData,
+  input,
+  data,
+  changeContinent,
 }) => {
   const ContinentsArray: string[] = [
     "Africa",
@@ -45,6 +60,14 @@ const MainSection: React.FC<Props> = ({
           );
         })}
       </Select>
+      <Countries
+        data={data}
+        setData={setData}
+        input={input}
+        changeContinent={changeContinent}
+        setChangeContinent={setChangeContinent}
+        setInput={setInput}
+      />
     </MainSect>
   );
 };
